@@ -1,0 +1,66 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+
+.center {
+    margin: auto;
+    text-align: center;
+    display: block;
+}
+
+#wrapper {
+    min-height: auto;
+    position: relative;
+}
+
+.thead {
+    background-color: darkslategray;
+    color: white;
+    font-style: italic;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+#noProducts {
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    height: 400px;
+}
+
+.price {
+    color: red;
+}
+
+.right {
+    float: right;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+}
+
+.success-msg {
+    color: #270;
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    font-size: large;
+    font-weight: bold;
+}
+
+.success-msg-border {
+    border-radius: 3px 3px 3px 3px;
+    background-color: #DFF2BF;
+    padding: 10px;
+}

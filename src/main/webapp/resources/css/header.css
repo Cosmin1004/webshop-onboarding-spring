@@ -1,0 +1,22 @@
+#headerLogo {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#imageAllProducts {
+    width: 20px;
+    height: 20px;
+}
+
+#buttonsCategories {
+    margin-top: 10px;
+}
+
+.rightElement {
+    float: right;
+    margin-right: 5px;
+}
+
+form {
+    margin-bottom: 10px;
+}

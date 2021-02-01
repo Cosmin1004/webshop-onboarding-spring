@@ -1,0 +1,48 @@
+.footer {
+    background-color: #222;
+    border-color: #080808;
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.bottom {
+    font-weight: bold;
+    font-family: Verdana, serif;
+    font-size: 100%;
+    color: white;
+}
+
+ul.bottom {
+    list-style-type: none;
+    padding: 0;
+    margin: 3em 0 0;
+    text-align: center;
+}
+
+.bottom li {
+    display: inline;
+    margin: 0.1em 0.1em;
+    padding: 0.0em;
+}
+
+.bottom a {
+    color: white;
+}
+
+.bottom a:hover {
+    color: lightgrey;
+}
+
+.about {
+    color: lightgrey;
+    font-family: Helvetica, serif;
+    text-align: center;
+    font-size: 90%;
+}
+
+div.about {
+    margin-top: 1em;
+}
