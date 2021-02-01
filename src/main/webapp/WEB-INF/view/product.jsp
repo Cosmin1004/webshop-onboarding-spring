@@ -23,18 +23,17 @@
 
     <script src="/resources/js/user.js"></script>
     <script src="/resources/js/cart.js"></script>
+    <script src="/resources/js/product.js"></script>
 </head>
 
-<body>
+<body onload="getCartCount()">
 
 <jsp:include page="header.jsp"/>
 <jsp:include page="login.jsp"/>
 <jsp:include page="cart.jsp"/>
 
-
-
 <div id="wrapper">
-    <div class="container">
+    <div class="container" style="margin-bottom: 100px">
         <div class="success-msg" id="cartSuccess" hidden></div>
         <c:if test="${fn:length(products) == 0}">
             <img id="noProducts" alt="No product found..."
@@ -86,6 +85,10 @@
                 </table>
             </div>
         </c:if>
+        <a id="backToTop" href="#" class="btn btn-primary btn-lg back-to-top" role="button"
+           title="Click to return on the top of the page" data-toggle="tooltip" data-placement="left">
+            <span id="backToToSpan" class="glyphicon glyphicon-chevron-up"></span>
+        </a>
     </div>
     <jsp:include page="footer.jsp"/>
 </div>

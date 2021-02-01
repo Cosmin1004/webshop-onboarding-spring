@@ -25,7 +25,8 @@ public class CartController {
     private List<CartEntry> cartEntries;
 
     @Autowired
-    CartController(CartService cartService, ProductService productService, AnonymousCartHandler anonymousCartHandler) {
+    CartController(CartService cartService, ProductService productService,
+                   AnonymousCartHandler anonymousCartHandler) {
         this.cartService = cartService;
         this.productService = productService;
         this.anonymousCartHandler = anonymousCartHandler;
@@ -50,7 +51,8 @@ public class CartController {
         } else {
             // add/update anonymous cart(from cookies)
             anonymousCartHandler.saveToCookies(request, response, productName);
-            responseMessage = "The product \"" + productName + "\" has been added to the cart. Be aware that you are not logged in.";
+            responseMessage = "The product \"" + productName + "\" has been added to the cart. " +
+                    "Be aware that you are not logged in.";
         }
         return responseMessage;
 
@@ -59,7 +61,7 @@ public class CartController {
     @GetMapping(value = "/cart")
     public @ResponseBody List<CartEntry> getCart(@ModelAttribute("user") User user,
                                                  HttpServletRequest request) {
-        if(user != null) {
+        if (user != null) {
             cartEntries = cartService.getCartEntriesByCart
                     (cartService.getByUserId(user.getId()));
         } else {
@@ -67,6 +69,22 @@ public class CartController {
         }
 
         return cartEntries;
+    }
+
+    @GetMapping("/cartCount")
+    public @ResponseBody
+    String getCartCount(@ModelAttribute("user") User user,
+                        HttpServletRequest request) {
+        Integer count;
+        if (user != null) {
+            count = cartService.getCartEntriesByCart
+                    (cartService.getByUserId(user.getId())).stream()
+                    .map(CartEntry::getQuantity).mapToInt(Integer::intValue).sum();
+        } else {
+            count = anonymousCartHandler.getAnonymousCart(request).stream()
+                    .map(CartEntry::getQuantity).mapToInt(Integer::intValue).sum();
+        }
+        return String.valueOf(count);
     }
 
     private CartEntry setCartEntry(User user, String productName) {

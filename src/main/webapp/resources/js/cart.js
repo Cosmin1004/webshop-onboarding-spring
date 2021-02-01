@@ -1,3 +1,4 @@
+//add product to the cart
 $(document).on("click","#addProductToCart",function(){
     $.ajax({
         type : "POST",
@@ -10,11 +11,13 @@ $(document).on("click","#addProductToCart",function(){
             cartSuccess.text(responseText);
             cartSuccess.addClass("success-msg-border");
             cartSuccess.show().delay(2500).fadeOut();
+            getCartCount();
         }
     });
     $(this).blur();
 });
 
+//get cart
 $(document).on("click","#showCart",function(){
     $.ajax({
         type : "GET",
@@ -31,18 +34,31 @@ $(document).on("click","#showCart",function(){
     $(this).blur();
 });
 
-$(document).on("click","#loginToSendOrder",function(){
+$(document).on("click", "#loginToSendOrder", function () {
     $('#cartModal').modal('hide');
     $('#loginModal').modal('show');
 });
 
+//get cart count
+function getCartCount() {
+    $.ajax({
+        type: "GET",
+        url: "/cartCount",
+        success: function (data) {
+            let count = $('#ordersCount');
+            count.text("(" + data + ")");
+        }
+    });
+}
+
+//create table in cart modal(with list of cart entries)
 function editTable(cartEntries) {
     const tableHeader = $("#cartTable thead");
-    if(cartEntries.length === 0) {
+    if (cartEntries.length === 0) {
         tableHeader.hide();
         hideTotalPrice();
         hideSendButton();
-        if(! document.body.contains(document.getElementById("noItems"))){
+        if (!document.body.contains(document.getElementById("noItems"))) {
             $('<h3 id="noItems">No items in cart...</h3>').appendTo('#cartTable');
         }
     } else {

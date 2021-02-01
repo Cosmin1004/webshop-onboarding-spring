@@ -20,9 +20,10 @@
                     </c:forEach>
                 </div>
             </form>
-            <form class="rightElement" >
+            <form class="rightElement">
                 <button type="button" id="showCart" class="btn btn-default active">
                     <img class="icon" src="resources/images/cart.png" title="View the cart">
+                    <span id="ordersCount"></span>
                 </button>
             </form>
         </div>
