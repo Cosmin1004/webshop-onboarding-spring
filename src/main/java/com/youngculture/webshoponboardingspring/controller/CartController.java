@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -21,8 +22,6 @@ public class CartController {
     private final CartService cartService;
     private final ProductService productService;
     private final AnonymousCartHandler anonymousCartHandler;
-
-    private List<CartEntry> cartEntries;
 
     @Autowired
     CartController(CartService cartService, ProductService productService,
@@ -39,7 +38,8 @@ public class CartController {
     }
 
     @PostMapping(value = "/addToCart")
-    public @ResponseBody String addProductToCart(@RequestParam("productName") String productName,
+    public @ResponseBody
+    String addProductToCart(@RequestParam("productName") String productName,
                             @ModelAttribute("user") User user,
                             HttpServletRequest request, HttpServletResponse response) {
         String responseMessage = null;
@@ -47,7 +47,7 @@ public class CartController {
             // add/update user cart
             CartEntry cartEntry = setCartEntry(user, productName);
             cartService.saveOrUpdateCart(user, cartEntry);
-            responseMessage = "The product \"" + productName + "\" has been added to your cart";
+            responseMessage = "The product \"" + productName + "\" has been added to your cart.";
         } else {
             // add/update anonymous cart(from cookies)
             anonymousCartHandler.saveToCookies(request, response, productName);
@@ -59,11 +59,13 @@ public class CartController {
     }
 
     @GetMapping(value = "/cart")
-    public @ResponseBody List<CartEntry> getCart(@ModelAttribute("user") User user,
-                                                 HttpServletRequest request) {
+    public @ResponseBody
+    List<CartEntry> getCart(@ModelAttribute("user") User user,
+                            HttpServletRequest request) {
+        List<CartEntry> cartEntries;
         if (user != null) {
             cartEntries = cartService.getCartEntriesByCart
-                    (cartService.getByUserId(user.getId()));
+                    (cartService.getCartByUserId(user.getId()));
         } else {
             cartEntries = anonymousCartHandler.getAnonymousCart(request);
         }
@@ -78,7 +80,7 @@ public class CartController {
         Integer count;
         if (user != null) {
             count = cartService.getCartEntriesByCart
-                    (cartService.getByUserId(user.getId())).stream()
+                    (cartService.getCartByUserId(user.getId())).stream()
                     .map(CartEntry::getQuantity).mapToInt(Integer::intValue).sum();
         } else {
             count = anonymousCartHandler.getAnonymousCart(request).stream()
@@ -87,10 +89,30 @@ public class CartController {
         return String.valueOf(count);
     }
 
+    @DeleteMapping(value = "/removeFromCart")
+    public @ResponseBody
+    String removeItemFromCart(@RequestParam("productName") String productName,
+                              @ModelAttribute("user") User user,
+                              HttpServletRequest request, HttpServletResponse response) {
+        if (user != null) {
+            cartService.removeCartEntryByCartAndProduct(cartService.getCartByUserId(user.getId()),
+                    productService.getByName(productName));
+        } else {
+            anonymousCartHandler.removeCartEntryCookie(request, response, productName);
+        }
+        return "The product \"" + productName + "\" has been removed from your cart.";
+    }
+
+    @Transactional
+    @DeleteMapping(value = "/removeAll")
+    public void removeAllFromCart(@ModelAttribute("user") User user) {
+        cartService.removeAllCartEntriesByCart(cartService.getCartByUserId(user.getId()));
+    }
+
     private CartEntry setCartEntry(User user, String productName) {
         CartEntry cartEntry = new CartEntry();
         Product product = productService.getByName(productName);
-        cartEntry.setCart(cartService.getByUserId(user.getId()));
+        cartEntry.setCart(cartService.getCartByUserId(user.getId()));
         cartEntry.setProduct(product);
 
         return cartEntry;

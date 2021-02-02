@@ -7,9 +7,10 @@
             <div class="modal-content" id="modalBody">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h1 style="margin-top: 5px; margin-bottom: 5px" class="center">Shopping cart</h1>
+                    <h1 class="title">Shopping cart</h1>
                 </div>
                 <div class="modal-body">
+                    <div class="success-remove-msg" id="removeSuccess" hidden></div>
                     <table id="cartTable" class="table table-striped">
                         <col width='50%'>
                         <col width='20%'>
@@ -28,7 +29,7 @@
                     <span hidden id="forSend">
                         <c:choose>
                             <c:when test="${currentSessionUser != null}">
-                                <button class="btn btn-success" id="sendButton">
+                                <button class="btn btn-success" id="sendOrder">
                                     <img class="sendButton" src="resources/images/send.png" title="Send">
                                 </button>
                             </c:when>

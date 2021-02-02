@@ -3,7 +3,7 @@ $(document).on("click", "#loginButton", function () {
     document.getElementById("errorBar").innerHTML = null;
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     let error = document.getElementById("hiddenError");
     if (error) {
         showLoginModal();

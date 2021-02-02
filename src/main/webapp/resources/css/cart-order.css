@@ -1,0 +1,55 @@
+.title {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#modalDialog {
+    overflow-y: initial !important;
+}
+
+#modalBody {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.totalPrice {
+    margin-left: 5px;
+    float: left;
+    color: #1e7e34;
+    font-weight: bold;
+}
+
+.sendButton {
+    width: 20px;
+    height: 20px;
+}
+
+#ordersCount {
+    font-style: italic;
+    font-weight: bold;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.success-remove-msg {
+    color: whitesmoke;
+    text-align: center;
+    font-weight: bold;
+    font-size: small;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.success-remove-msg-border {
+    border-radius: 3px 3px 3px 3px;
+    background-color: #d9534f;
+    padding: 10px;
+}
+
+.status {
+    margin-left: 5px;
+    color: #005cbf;
+    font-weight: bold;
+    float: right;
+}

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.youngculture.webshoponboardingspring.util.Const.LOGIN_ERROR;
+
 @WebFilter("/login")
 public class LoginFilter implements Filter {
 
@@ -30,7 +32,7 @@ public class LoginFilter implements Filter {
         User user = userService.validate(req.getParameter("email"),
                 req.getParameter("password"));
         if (user == null) {
-            req.setAttribute("message", "Login problem: Invalid email or password!");
+            req.setAttribute("message", LOGIN_ERROR);
             RequestDispatcher dispatcher = req.getRequestDispatcher("home");
             dispatcher.forward(req, res);
             return;

@@ -37,6 +37,13 @@ table {
     height: 400px;
 }
 
+#imageAdmin {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+    height: 200px;
+}
+
 .price {
     color: red;
 }

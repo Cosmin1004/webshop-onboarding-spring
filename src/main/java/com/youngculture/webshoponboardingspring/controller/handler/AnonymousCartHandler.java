@@ -46,7 +46,7 @@ public class AnonymousCartHandler {
         }
         //sort by quantity
         return cartEntries.stream()
-                .sorted(Comparator.comparing(CartEntry :: getQuantity))
+                .sorted(Comparator.comparing(CartEntry::getQuantity))
                 .collect(Collectors.toList());
     }
 

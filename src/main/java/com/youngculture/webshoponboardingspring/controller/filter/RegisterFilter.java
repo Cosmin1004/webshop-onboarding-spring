@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.youngculture.webshoponboardingspring.util.Const.REGISTRATION_ERROR_1;
+import static com.youngculture.webshoponboardingspring.util.Const.REGISTRATION_ERROR_2;
+
 @WebFilter("/register")
 public class RegisterFilter implements Filter {
 
@@ -28,16 +31,11 @@ public class RegisterFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        String message;
-
         if (userService.getByEmail(req.getParameter("email")) != null) {
-            message = "Registration problem: This email is already used!";
-            doAction(req, res, message);
+            doAction(req, res, REGISTRATION_ERROR_1);
             return;
         } else if (!validatePasswordField(req.getParameter("password"))) {
-            message = "Registration problem: Password must have at least 8 characters " +
-                    "(with minimum 1 digit, no special characters)!";
-            doAction(req, res, message);
+            doAction(req, res, REGISTRATION_ERROR_2);
             return;
         }
         filterChain.doFilter(req, res);

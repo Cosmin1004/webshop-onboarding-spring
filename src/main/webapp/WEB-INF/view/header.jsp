@@ -2,30 +2,46 @@
 <%@ taglib uri="WEB-INF/tag/formatText.tld" prefix="yc" %>
 
 <a href="${pageContext.request.contextPath}/home"><img class="center" id="headerLogo"
-                                                  src="resources/images/youngCulture.jpg" alt="YoungCulture"/></a>
+                                                       src="resources/images/youngCulture.jpg" alt="YoungCulture"/></a>
 
 <nav class="navbar navbar-inverse">
     <div>
         <div class="center" id="buttonsCategories">
-            <form action="${pageContext.request.contextPath}/products" method="get">
-                <button type="submit" class="btn btn-default" name="category" value="all">
-                    <img src="resources/images/all.png" title="All products" id="imageAllProducts">
-                </button>
-                <div class="btn-group" role="group">
-                    <c:forEach var="category" items="${categories}">
-                        <button type="submit" class="btn btn-default active" name="category"
-                                value="${category.name}">
-                            <yc:formatText text="${category.name}"/>
-                        </button>
-                    </c:forEach>
-                </div>
-            </form>
-            <form class="rightElement">
-                <button type="button" id="showCart" class="btn btn-default active">
-                    <img class="icon" src="resources/images/cart.png" title="View the cart">
-                    <span id="ordersCount"></span>
-                </button>
-            </form>
+            <c:if test="${currentSessionUser == null || currentSessionUser.admin != true}">
+                <form action="${pageContext.request.contextPath}/products" method="get">
+                    <button type="submit" class="btn btn-default" name="category" value="all">
+                        <img src="resources/images/all.png" title="All products" id="imageAllProducts">
+                    </button>
+                    <div class="btn-group" role="group">
+                        <c:forEach var="category" items="${categories}">
+                            <button type="submit" class="btn btn-default active" name="category"
+                                    value="${category.name}">
+                                <yc:formatText text="${category.name}"/>
+                            </button>
+                        </c:forEach>
+                    </div>
+                </form>
+                <form class="rightElement">
+                    <button type="button" id="showCart" class="btn btn-default active">
+                        <img class="icon" src="resources/images/cart.png" title="View the cart">
+                        <span id="ordersCount"></span>
+                    </button>
+                </form>
+            </c:if>
+            <c:if test="${currentSessionUser != null && currentSessionUser.admin != true}">
+                <form action="${pageContext.request.contextPath}/orders" method="get">
+                    <button type="submit" class="btn btn-default active rightElement">
+                        <img src="resources/images/myOrders.png" title="View your orders" class="icon">
+                    </button>
+                </form>
+            </c:if>
+            <c:if test="${currentSessionUser != null && currentSessionUser.admin == true}">
+                <form action="${pageContext.request.contextPath}/allOrders" method="get">
+                    <button type="submit" id="adminGetOrders" class="btn btn-default active rightElement">
+                        <img src="resources/images/admin.png" title="View users orders" class="icon">
+                    </button>
+                </form>
+            </c:if>
         </div>
         <span class="rightElement">
             <c:choose>
