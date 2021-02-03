@@ -18,7 +18,6 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
 
-    private List<Category> categories;
     private List<Product> products;
     private boolean categoryRendered;
 
@@ -34,11 +33,12 @@ public class ProductController {
                                            @RequestParam(value = "category") String category) {
         products = handleGetProducts(category);
         setAttributes(model, categoryRendered);
-        return "product";
+
+        return "home";
     }
 
     private void setAttributes(ModelMap model, boolean categoryRendered) {
-        categories = categoryService.getAll();
+        List<Category> categories = categoryService.getAll();
         model.addAttribute("categories", categories);
         model.addAttribute("products", products);
         model.addAttribute("categoryRendered", categoryRendered);
@@ -53,6 +53,7 @@ public class ProductController {
             products = productService.getAllByCategory(category);
             categoryRendered = false;
         }
+
         return products;
     }
 }

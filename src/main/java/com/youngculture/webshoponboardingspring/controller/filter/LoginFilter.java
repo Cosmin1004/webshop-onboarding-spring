@@ -2,7 +2,6 @@ package com.youngculture.webshoponboardingspring.controller.filter;
 
 import com.youngculture.webshoponboardingspring.model.User;
 import com.youngculture.webshoponboardingspring.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,13 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.youngculture.webshoponboardingspring.util.Const.LOGIN_ERROR;
+
 @WebFilter("/login")
 public class LoginFilter implements Filter {
 
     private final UserService userService;
 
-    @Autowired
-    LoginFilter(UserService userService) {
+    public LoginFilter(UserService userService) {
         this.userService = userService;
     }
 
@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
         User user = userService.validate(req.getParameter("email"),
                 req.getParameter("password"));
         if (user == null) {
-            req.setAttribute("message", "Login problem: Invalid email or password!");
+            req.setAttribute("message", LOGIN_ERROR);
             RequestDispatcher dispatcher = req.getRequestDispatcher("home");
             dispatcher.forward(req, res);
             return;

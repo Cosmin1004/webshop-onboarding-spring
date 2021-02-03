@@ -36,27 +36,30 @@ public class UserController {
     @PostMapping(value = "/login")
     public String login(@ModelAttribute("loginForm") LoginDto loginDto,
                         HttpServletRequest request, HttpServletResponse response) {
-
         //validation filter in LoginFilter
 
         User user = userService.getByEmail(loginDto.getEmail());
         setUserSession(request, user);
 
-        //merge user's cart with the anonymous cart
-        cartService.mergeAnonymousCartWithUserCart(user,
-                anonymousCartHandler.getAnonymousCart(request));
-        //remove products from anonymous cart after they were merged
-        anonymousCartHandler.removeAllCartEntryCookies(request, response);
+        //if the user for login is admin, then skip the merge + remove
+        if (!user.isAdmin()) {
+            afterLogin(request, response, user);
+        }
 
         return "redirect:/home";
     }
 
     @PostMapping(value = "/register")
     public String register(@ModelAttribute("registerForm") RegisterDto registerDto,
-                           HttpServletRequest request) {
+                           HttpServletRequest request, HttpServletResponse response) {
+        //validation filter in RegisterFilter
+
         User user = dtoConvertor.convertRegisterDtoToUser(registerDto);
+
         userService.saveUser(user);
         setUserSession(request, user);
+
+        afterLogin(request, response, user);
 
         return "redirect:/home";
     }
@@ -64,7 +67,17 @@ public class UserController {
     @PostMapping(value = "/logout")
     public String logout(HttpSession session) {
         session.invalidate();
+
         return "redirect:/home";
+    }
+
+    private void afterLogin(HttpServletRequest request, HttpServletResponse response,
+                            User user) {
+        //merge user's cart with the anonymous cart
+        cartService.mergeAnonymousCartWithUserCart(user,
+                anonymousCartHandler.getAnonymousCart(request));
+        //remove products from anonymous cart after they were merged
+        anonymousCartHandler.removeAllCartEntryCookies(request, response);
     }
 
     private void setUserSession(HttpServletRequest request, User user) {

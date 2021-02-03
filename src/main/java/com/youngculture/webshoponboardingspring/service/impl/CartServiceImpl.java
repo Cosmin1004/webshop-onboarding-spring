@@ -2,6 +2,7 @@ package com.youngculture.webshoponboardingspring.service.impl;
 
 import com.youngculture.webshoponboardingspring.model.Cart;
 import com.youngculture.webshoponboardingspring.model.CartEntry;
+import com.youngculture.webshoponboardingspring.model.Product;
 import com.youngculture.webshoponboardingspring.model.User;
 import com.youngculture.webshoponboardingspring.repository.CartEntryRepository;
 import com.youngculture.webshoponboardingspring.repository.CartRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,6 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final CartEntryRepository cartEntryRepository;
 
-
     @Autowired
     CartServiceImpl(CartRepository cartRepository, CartEntryRepository cartEntryRepository) {
         this.cartRepository = cartRepository;
@@ -27,7 +28,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart getByUserId(Long id) {
+    public Cart getCartByUserId(Long id) {
         return cartRepository.findByUserId(id);
     }
 
@@ -58,7 +59,7 @@ public class CartServiceImpl implements CartService {
     public void mergeAnonymousCartWithUserCart(User user,
                                                List<CartEntry> anonymousCartEntries) {
         //if the anonymous cart is empty - nothing to merge
-        if(anonymousCartEntries.isEmpty()) {
+        if (anonymousCartEntries.isEmpty()) {
             return;
         }
         //first check if the user has already a created cart
@@ -89,6 +90,18 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartEntry> getCartEntriesByCart(Cart cart) {
         return cartEntryRepository.findAllByCart(cart, Sort.by("quantity"));
+    }
+
+    @Override
+    public void removeCartEntryByCartAndProduct(Cart cart, Product product) {
+        cartEntryRepository.delete(
+                cartEntryRepository.findByCartAndProduct(cart, product));
+    }
+
+    @Override
+    @Transactional
+    public void removeAllCartEntriesByCart(Cart cart) {
+        cartEntryRepository.deleteAllByCart(cart);
     }
 
     //for merge (anonymous cart(many entries) with user's cart)

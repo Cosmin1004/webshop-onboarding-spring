@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 /**
  * necessary methods for anonymous cart (saved with cookies)
  * all CRUD operations
@@ -46,7 +45,7 @@ public class AnonymousCartHandler {
         }
         //sort by quantity
         return cartEntries.stream()
-                .sorted(Comparator.comparing(CartEntry :: getQuantity))
+                .sorted(Comparator.comparing(CartEntry::getQuantity))
                 .collect(Collectors.toList());
     }
 

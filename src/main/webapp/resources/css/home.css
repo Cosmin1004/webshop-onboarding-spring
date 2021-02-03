@@ -11,7 +11,7 @@ body {
     display: block;
 }
 
-#wrapper {
+.wrapper {
     min-height: auto;
     position: relative;
 }
@@ -27,6 +27,7 @@ table {
     table-layout: fixed;
 }
 
+
 #noProducts {
     display: block;
     margin-top: 10px;
@@ -34,6 +35,13 @@ table {
     margin-right: auto;
     width: 800px;
     height: 400px;
+}
+
+#imageAdmin {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+    height: 200px;
 }
 
 .price {
@@ -63,4 +71,21 @@ table {
     border-radius: 3px 3px 3px 3px;
     background-color: #DFF2BF;
     padding: 10px;
+}
+
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    display: none;
+    background: #222;
+}
+
+.back-to-top:hover, .back-to-top:active, .back-to-top:focus {
+    background-color: black;
+}
+
+.marginButton {
+    margin-bottom: 100px;
 }

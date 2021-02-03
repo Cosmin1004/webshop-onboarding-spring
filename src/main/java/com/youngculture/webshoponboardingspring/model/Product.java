@@ -30,8 +30,8 @@ public class Product {
     @Column
     private Double price;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PurchaseOrderEntry> orderEntries;
 
 }

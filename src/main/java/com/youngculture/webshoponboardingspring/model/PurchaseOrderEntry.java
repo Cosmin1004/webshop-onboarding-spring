@@ -1,5 +1,6 @@
 package com.youngculture.webshoponboardingspring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class PurchaseOrderEntry {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private PurchaseOrder purchaseOrder;
 
     @ManyToOne
