@@ -47,7 +47,7 @@ $(document).on("click", "#removeFromCart", function () {
             const removeSuccess = $('#removeSuccess');
             removeSuccess.text(responseText);
             removeSuccess.addClass("success-remove-msg-border");
-            removeSuccess.show().delay(3000).fadeOut();
+            removeSuccess.show().delay(2500).fadeOut();
             $.ajax({
                 type: "GET",
                 url: "/cart",
@@ -128,7 +128,7 @@ function editTable(cartEntries) {
                 $('<td>').text(item.quantity),
                 $('<td class="price">').text(item.product.price + " Lei").append(
                     $('<button id="removeFromCart" value="' + item.product.name + '" class="btn btn-danger rightElement">').append(
-                        $('<img class="buttonImage" src="resources/images/removeFromCart.png" title="Remove from cart">'))))
+                        $('<img class="buttonImage" src="resources/images/removeFromCart.png" title="Remove from cart" alt="-">'))))
                 .appendTo('#cartTable');
             totalPrice += item.product.price * item.quantity;
         });

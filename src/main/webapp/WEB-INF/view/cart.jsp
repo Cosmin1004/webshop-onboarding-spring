@@ -30,7 +30,7 @@
                         <c:choose>
                             <c:when test="${currentSessionUser != null}">
                                 <button class="btn btn-success" id="sendOrder">
-                                    <img class="buttonImage" src="resources/images/send.png" title="Send">
+                                    <img class="buttonImage" src="resources/images/send.png" title="Send" alt="+">
                                 </button>
                             </c:when>
                             <c:otherwise>

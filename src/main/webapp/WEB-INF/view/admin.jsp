@@ -47,7 +47,7 @@
             </ul>
             </div>
             <span id="chosenEmail" hidden></span>
-            <span id="ordersCount" idden class="badge"></span>
+            <span id="ordersCount" hidden class="badge"></span>
         </span>
 
         <div id="infos"></div>

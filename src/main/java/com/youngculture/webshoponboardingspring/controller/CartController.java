@@ -42,7 +42,7 @@ public class CartController {
     String addProductToCart(@RequestParam("productName") String productName,
                             @ModelAttribute("user") User user,
                             HttpServletRequest request, HttpServletResponse response) {
-        String responseMessage = null;
+        String responseMessage;
         if (user != null) {
             // add/update user cart
             CartEntry cartEntry = setCartEntry(user, productName);

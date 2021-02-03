@@ -46,7 +46,7 @@
         <span class="rightElement">
             <c:choose>
                 <c:when test="${currentSessionUser == null}">
-                     <button id="loginButton" class="btn btn-default active" href="#">
+                     <button id="loginButton" class="btn btn-default active">
                          <img class="icon" src="resources/images/login.png" title="Login">
                      </button>
                     <c:if test="${message != null}">

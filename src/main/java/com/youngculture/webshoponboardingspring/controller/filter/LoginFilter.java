@@ -2,7 +2,6 @@ package com.youngculture.webshoponboardingspring.controller.filter;
 
 import com.youngculture.webshoponboardingspring.model.User;
 import com.youngculture.webshoponboardingspring.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -17,7 +16,6 @@ public class LoginFilter implements Filter {
 
     private final UserService userService;
 
-    @Autowired
     public LoginFilter(UserService userService) {
         this.userService = userService;
     }
