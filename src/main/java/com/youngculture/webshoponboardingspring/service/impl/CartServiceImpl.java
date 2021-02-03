@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +99,7 @@ public class CartServiceImpl implements CartService {
                 cartEntryRepository.findByCartAndProduct(cart, product));
     }
 
+    @Transactional
     @Override
     public void removeAllCartEntriesByCart(Cart cart) {
         cartEntryRepository.deleteAllByCart(cart);

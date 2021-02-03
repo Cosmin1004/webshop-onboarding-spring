@@ -85,3 +85,7 @@ table {
 .back-to-top:hover, .back-to-top:active, .back-to-top:focus {
     background-color: black;
 }
+
+.marginButton {
+    margin-bottom: 100px;
+}

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -103,7 +102,6 @@ public class CartController {
         return "The product \"" + productName + "\" has been removed from your cart.";
     }
 
-    @Transactional
     @DeleteMapping(value = "/removeAll")
     public void removeAllFromCart(@ModelAttribute("user") User user) {
         cartService.removeAllCartEntriesByCart(cartService.getCartByUserId(user.getId()));

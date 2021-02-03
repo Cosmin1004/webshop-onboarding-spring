@@ -30,7 +30,7 @@
 <jsp:include page="cart.jsp"/>
 
 <div id="wrapper">
-    <div class="container" style="margin-bottom: 100px">
+    <div class="container marginButton">
         <h1 class="title">My orders</h1>
         <c:choose>
             <c:when test="${orders.size() == 0}">

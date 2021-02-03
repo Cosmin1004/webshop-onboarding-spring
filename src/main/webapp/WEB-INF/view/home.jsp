@@ -35,7 +35,7 @@
 <div id="wrapper">
     <c:choose>
         <c:when test="${! currentSessionUser.admin}">
-            <div class="container" style="margin-bottom: 100px">
+            <div class="container marginButton">
                 <div class="success-msg" id="addProductSuccess" hidden></div>
                 <div class="success-msg" id="sentOrderSuccess" hidden></div>
                 <c:if test="${fn:length(products) == 0}">

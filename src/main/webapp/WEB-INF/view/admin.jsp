@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/resources/css/cart-order.css"/>
     <link rel="stylesheet" href="/resources/css/login.css"/>
     <link rel="stylesheet" href="/resources/css/header.css"/>
+    <link rel="stylesheet" href="/resources/css/admin.css"/>
     <link rel="shortcut icon" type="image/x-icon" href="resources/images/y.png"/>
 
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -22,6 +23,7 @@
     <script src="/resources/js/user.js"></script>
     <script src="/resources/js/cart-order.js"></script>
     <script src="/resources/js/home.js"></script>
+    <script src="/resources/js/admin.js"></script>
 </head>
 
 <body>
@@ -29,8 +31,29 @@
 <jsp:include page="header.jsp"/>
 
 <div id="wrapper">
-    <div class="container" style="margin-bottom: 100px">
-        <h1 class="title">All users orders</h1>
+    <div id="adminContainer" class="container marginButton">
+        <h1 class="title">All user's sent orders</h1>
+        <span class="dropDownEmail">
+            <div class="btn-group dropDownEmail">
+            <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Select a user to see his orders <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <c:forEach var="user" items="${users}">
+                    <b>
+                       <a class="dropdown-item userDropDownItem" href="#" title="Click to see user's orders!"
+                          onclick="getAllOrders('${user.email}');return false;">${user.email}</a>
+                    </b>
+                </c:forEach>
+            </ul>
+            </div>
+            <span id="chosenEmail" hidden></span>
+            <span id="ordersCount" idden class="badge"></span>
+        </span>
+
+        <div id="infos"></div>
+
         <a id="backToTop" href="#" class="btn btn-primary btn-lg back-to-top" role="button"
            title="Click to return on the top of the page" data-toggle="tooltip" data-placement="left">
             <span id="backToToSpan" class="glyphicon glyphicon-chevron-up"></span>

@@ -1,7 +1,6 @@
 package com.youngculture.webshoponboardingspring.service;
 
 import com.youngculture.webshoponboardingspring.model.PurchaseOrder;
-import com.youngculture.webshoponboardingspring.model.PurchaseOrderEntry;
 import com.youngculture.webshoponboardingspring.model.User;
 
 import java.util.List;
@@ -12,6 +11,9 @@ public interface PurchaseOrderService {
 
     List<PurchaseOrder> getAllByUser(User user);
 
-    List<PurchaseOrderEntry> getAllSentOrders();
+    List<PurchaseOrder> getAllSentOrdersByUser(User user);
 
+    void manageOrder(Long id, String action);
+
+    PurchaseOrder getById(Long id);
 }

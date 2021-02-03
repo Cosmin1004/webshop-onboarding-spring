@@ -3,7 +3,6 @@ package com.youngculture.webshoponboardingspring.service.impl;
 import com.youngculture.webshoponboardingspring.model.*;
 import com.youngculture.webshoponboardingspring.repository.CartEntryRepository;
 import com.youngculture.webshoponboardingspring.repository.CartRepository;
-import com.youngculture.webshoponboardingspring.repository.PurchaseOrderEntryRepository;
 import com.youngculture.webshoponboardingspring.repository.PurchaseOrderRepository;
 import com.youngculture.webshoponboardingspring.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +16,16 @@ import java.util.List;
 public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     public final PurchaseOrderRepository purchaseOrderRepository;
-    public final PurchaseOrderEntryRepository purchaseOrderEntryRepository;
     public final CartRepository cartRepository;
     public final CartEntryRepository cartEntryRepository;
 
     @Autowired
     public PurchaseOrderServiceImpl(PurchaseOrderRepository purchaseOrderRepository,
-                                    PurchaseOrderEntryRepository purchaseOrderEntryRepository,
                                     CartRepository cartRepository,
                                     CartEntryRepository cartEntryRepository) {
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.cartRepository = cartRepository;
         this.cartEntryRepository = cartEntryRepository;
-        this.purchaseOrderEntryRepository = purchaseOrderEntryRepository;
     }
 
     @Override
@@ -45,8 +41,26 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     @Override
-    public List<PurchaseOrderEntry> getAllSentOrders() {
-        return purchaseOrderEntryRepository.findAllByPurchaseOrderStatus(Status.SENT);
+    public List<PurchaseOrder> getAllSentOrdersByUser(User user) {
+        return purchaseOrderRepository
+                .findAllByUserAndStatus(user, Status.SENT);
+    }
+
+    @Override
+    public void manageOrder(Long id, String action) {
+        PurchaseOrder order =
+                purchaseOrderRepository.findById(id).get();
+        if (action.equals("Confirm")) {
+            order.setStatus(Status.CONFIRMED);
+        } else if (action.equals("Decline")) {
+            order.setStatus(Status.DECLINED);
+        }
+        purchaseOrderRepository.save(order);
+    }
+
+    @Override
+    public PurchaseOrder getById(Long id) {
+        return purchaseOrderRepository.findById(id).get();
     }
 
     /*

@@ -1,0 +1,16 @@
+.dropDownEmail {
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.userDropDownItem {
+    margin: 5px 5px 5px 5px;
+}
+
+#chosenEmail {
+    color: black;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    font-style: italic;
+    font-size: large;
+}

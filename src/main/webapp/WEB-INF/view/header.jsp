@@ -24,7 +24,7 @@
                 <form class="rightElement">
                     <button type="button" id="showCart" class="btn btn-default active">
                         <img class="icon" src="resources/images/cart.png" title="View the cart">
-                        <span id="ordersCount"></span>
+                        <span id="ordersCount" class="badge"></span>
                     </button>
                 </form>
             </c:if>
@@ -36,7 +36,7 @@
                 </form>
             </c:if>
             <c:if test="${currentSessionUser != null && currentSessionUser.admin == true}">
-                <form action="${pageContext.request.contextPath}/allOrders" method="get">
+                <form action="${pageContext.request.contextPath}/admin" method="get">
                     <button type="submit" id="adminGetOrders" class="btn btn-default active rightElement">
                         <img src="resources/images/admin.png" title="View users orders" class="icon">
                     </button>

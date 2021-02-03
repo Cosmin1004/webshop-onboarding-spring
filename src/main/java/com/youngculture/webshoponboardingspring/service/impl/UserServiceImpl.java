@@ -7,6 +7,8 @@ import com.youngculture.webshoponboardingspring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -43,6 +45,11 @@ public class UserServiceImpl implements UserService {
             return user;
         }
         return null;
+    }
+
+    @Override
+    public List<User> getAllNonAdminUsers() {
+        return userRepository.findAllByAdmin(false);
     }
 
 }

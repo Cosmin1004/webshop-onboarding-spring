@@ -103,7 +103,7 @@ function getCartCount() {
         url: "/cartCount",
         success: function (data) {
             let count = $('#ordersCount');
-            count.text("(" + data + ")");
+            count.text(data);
         }
     });
 }
