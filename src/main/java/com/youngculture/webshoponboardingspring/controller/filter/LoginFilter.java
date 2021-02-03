@@ -18,7 +18,7 @@ public class LoginFilter implements Filter {
     private final UserService userService;
 
     @Autowired
-    LoginFilter(UserService userService) {
+    public LoginFilter(UserService userService) {
         this.userService = userService;
     }
 

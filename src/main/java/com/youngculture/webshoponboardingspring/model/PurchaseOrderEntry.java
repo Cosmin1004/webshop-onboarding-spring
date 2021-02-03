@@ -17,8 +17,8 @@ public class PurchaseOrderEntry {
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private PurchaseOrder purchaseOrder;
 
     @ManyToOne

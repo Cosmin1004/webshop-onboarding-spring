@@ -33,6 +33,7 @@ public class CartController {
     @ModelAttribute("user")
     public User getCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
+
         return (User) session.getAttribute("currentSessionUser");
     }
 
@@ -53,6 +54,7 @@ public class CartController {
             responseMessage = "The product \"" + productName + "\" has been added to the cart. " +
                     "Be aware that you are not logged in.";
         }
+
         return responseMessage;
 
     }
@@ -85,6 +87,7 @@ public class CartController {
             count = anonymousCartHandler.getAnonymousCart(request).stream()
                     .map(CartEntry::getQuantity).mapToInt(Integer::intValue).sum();
         }
+
         return String.valueOf(count);
     }
 

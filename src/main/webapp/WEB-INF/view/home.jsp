@@ -21,7 +21,6 @@
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="/resources/js/user.js"></script>
     <script src="/resources/js/cart-order.js"></script>
     <script src="/resources/js/home.js"></script>
 </head>
@@ -32,7 +31,7 @@
 <jsp:include page="login.jsp"/>
 <jsp:include page="cart.jsp"/>
 
-<div id="wrapper">
+<div class="wrapper">
     <c:choose>
         <c:when test="${! currentSessionUser.admin}">
             <div class="container marginButton">
@@ -60,7 +59,7 @@
                             </c:choose>
                             <thead class="thead">
                             <tr>
-                                <th scope="col">Product</th>
+                                <th scope="col"><span class="glyphicon glyphicon-chevron-down"></span> Product</th>
                                 <c:if test="${categoryRendered == true}">
                                     <th scope="col">Category</th>
                                 </c:if>

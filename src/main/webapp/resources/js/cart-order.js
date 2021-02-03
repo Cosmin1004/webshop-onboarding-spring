@@ -10,7 +10,7 @@ $(document).on("click", "#addProductToCart", function () {
             const addProductSuccess = $('#addProductSuccess');
             addProductSuccess.text(responseText);
             addProductSuccess.addClass("success-msg-border");
-            addProductSuccess.show().delay(1500).fadeOut();
+            addProductSuccess.show().delay(4000).fadeOut();
             getCartCount();
         }
     });
@@ -34,7 +34,7 @@ $(document).on("click", "#showCart", function () {
     $(this).blur();
 });
 
-//remove from cart
+//remove item from cart
 $(document).on("click", "#removeFromCart", function () {
     $.ajax({
         type: "DELETE",
@@ -47,7 +47,7 @@ $(document).on("click", "#removeFromCart", function () {
             const removeSuccess = $('#removeSuccess');
             removeSuccess.text(responseText);
             removeSuccess.addClass("success-remove-msg-border");
-            removeSuccess.show().delay(2500).fadeOut();
+            removeSuccess.show().delay(3000).fadeOut();
             $.ajax({
                 type: "GET",
                 url: "/cart",
@@ -61,14 +61,6 @@ $(document).on("click", "#removeFromCart", function () {
     });
     $(this).blur();
 });
-
-//remove all cart entries
-function removeAllFromCart() {
-    $.ajax({
-        type: "DELETE",
-        url: "/removeAll",
-    });
-}
 
 //send order
 $(document).on("click", "#sendOrder", function () {
@@ -84,8 +76,8 @@ $(document).on("click", "#sendOrder", function () {
             removeAllFromCart();
             //set cart count on 0 (no need to call getCount method)
             let count = $('#ordersCount');
-            count.text("(0)");
-            sentOrderSuccess.show().delay(3500).fadeOut();
+            count.text("0");
+            sentOrderSuccess.show().delay(3000).fadeOut();
         }
     });
     $(this).blur();
@@ -95,6 +87,14 @@ $(document).on("click", "#loginToSendOrder", function () {
     $('#cartModal').modal('hide');
     $('#loginModal').modal('show');
 });
+
+//remove all cart entries
+function removeAllFromCart() {
+    $.ajax({
+        type: "DELETE",
+        url: "/removeAll",
+    });
+}
 
 //get cart count
 function getCartCount() {
@@ -127,18 +127,14 @@ function editTable(cartEntries) {
                 $('<td>').text(item.product.name),
                 $('<td>').text(item.quantity),
                 $('<td class="price">').text(item.product.price + " Lei").append(
-                    $('<button id="removeFromCart" value="' + item.product.name + '" class="btn btn-danger rightElement">-</button>')
-                )
-            ).appendTo('#cartTable');
+                    $('<button id="removeFromCart" value="' + item.product.name + '" class="btn btn-danger rightElement">').append(
+                        $('<img class="buttonImage" src="resources/images/removeFromCart.png" title="Remove from cart">'))))
+                .appendTo('#cartTable');
             totalPrice += item.product.price * item.quantity;
         });
         showTotalPrice(totalPrice);
         showSendButton();
     }
-}
-
-function showCartModal() {
-    $('#cartModal').modal('show');
 }
 
 function showTotalPrice(subTotal) {

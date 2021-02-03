@@ -20,7 +20,6 @@
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="/resources/js/user.js"></script>
     <script src="/resources/js/cart-order.js"></script>
     <script src="/resources/js/home.js"></script>
     <script src="/resources/js/admin.js"></script>
@@ -32,7 +31,7 @@
 
 <div id="wrapper">
     <div id="adminContainer" class="container marginButton">
-        <h1 class="title">All user's sent orders</h1>
+        <h1 class="title"><span class="glyphicon glyphicon-list"></span> All user's sent orders</h1>
         <span class="dropDownEmail">
             <div class="btn-group dropDownEmail">
             <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
@@ -41,10 +40,9 @@
             </button>
             <ul class="dropdown-menu">
                 <c:forEach var="user" items="${users}">
-                    <b>
-                       <a class="dropdown-item userDropDownItem" href="#" title="Click to see user's orders!"
-                          onclick="getAllOrders('${user.email}');return false;">${user.email}</a>
-                    </b>
+                    <b><a class="dropdown-item userDropDownItem" href="#" title="Click to see user's orders!"
+                          onclick="getAllOrders('${user.email}');return false;">${user.email}</a></b>
+                    <br>
                 </c:forEach>
             </ul>
             </div>

@@ -22,9 +22,9 @@
                     </div>
                 </form>
                 <form class="rightElement">
-                    <button type="button" id="showCart" class="btn btn-default active">
+                    <button title="View the cart" type="button" id="showCart" class="btn btn-default active">
                         <img class="icon" src="resources/images/cart.png" title="View the cart">
-                        <span id="ordersCount" class="badge"></span>
+                        <span id="ordersCount" class="badge" title="Number of items in cart"></span>
                     </button>
                 </form>
             </c:if>

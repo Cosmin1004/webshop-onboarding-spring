@@ -29,9 +29,9 @@
 <jsp:include page="header.jsp"/>
 <jsp:include page="cart.jsp"/>
 
-<div id="wrapper">
+<div class="wrapper">
     <div class="container marginButton">
-        <h1 class="title">My orders</h1>
+        <h1 class="title"><span class="glyphicon glyphicon-list"></span> My orders</h1>
         <c:choose>
             <c:when test="${orders.size() == 0}">
                 <h3>No orders sent...</h3>

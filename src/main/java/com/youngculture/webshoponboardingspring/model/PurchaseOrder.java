@@ -19,8 +19,8 @@ public class PurchaseOrder {
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

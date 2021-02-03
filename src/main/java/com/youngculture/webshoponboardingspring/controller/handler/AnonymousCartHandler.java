@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 /**
  * necessary methods for anonymous cart (saved with cookies)
  * all CRUD operations

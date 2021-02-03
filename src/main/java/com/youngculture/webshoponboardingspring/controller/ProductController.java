@@ -33,6 +33,7 @@ public class ProductController {
                                            @RequestParam(value = "category") String category) {
         products = handleGetProducts(category);
         setAttributes(model, categoryRendered);
+
         return "home";
     }
 
@@ -52,6 +53,7 @@ public class ProductController {
             products = productService.getAllByCategory(category);
             categoryRendered = false;
         }
+
         return products;
     }
 }

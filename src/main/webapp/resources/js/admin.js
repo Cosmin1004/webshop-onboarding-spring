@@ -1,3 +1,4 @@
+//get all sent orders for a specific user(by email)
 function getAllOrders(email) {
     const chosenEmail = $('#chosenEmail');
     const ordersCount = $('#ordersCount')
@@ -14,11 +15,13 @@ function getAllOrders(email) {
             setCount(orders, ordersCount);
             chosenEmail.show();
             $('#infos').empty();
+            //add specific information about the orders
             addInformation(orders);
         }
     });
 }
 
+//confirm or decline a order
 $(document).on("click", ".manageButton", function () {
     $.ajax({
         type: "POST",
@@ -29,6 +32,7 @@ $(document).on("click", ".manageButton", function () {
         },
         success: function (responseText) {
             const matches = $('#chosenEmail').text().split('"');
+            //refresh the table after confirm/delete
             getAllOrders(matches[1]);
             alert(responseText);
         }
@@ -42,8 +46,9 @@ function addInformation(orders) {
     } else {
         $.each(orders, function (index, order) {
             $('<h3>').text('Order reference: ' + order.reference).appendTo('#infos');
+            $('<span class="glyphicon glyphicon-calendar"></span>').appendTo('#infos');
             const date = setDateAndTime(order.reference)
-            $('<span>').text('Date: ' + date).appendTo('#infos');
+            $('<span>').text(' Date: ' + date).appendTo('#infos');
             createAndPopulateTable(order);
             addActionButtons(order);
             $('<hr>').appendTo('#infos')
@@ -98,6 +103,6 @@ function setCount(orderEntries, ordersCount) {
 }
 
 function setDateAndTime(timestamp) {
-    const theDate = new Date(timestamp * 1000);
+    const theDate = new Date(timestamp);
     return theDate.toGMTString();
 }

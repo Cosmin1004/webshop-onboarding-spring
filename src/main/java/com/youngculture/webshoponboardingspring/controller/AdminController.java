@@ -26,19 +26,22 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/allOrders")
-    public @ResponseBody
-    List<PurchaseOrder> getAllSentOrders(
-            @RequestParam("email") String email) {
-        return purchaseOrderService.getAllSentOrdersByUser(userService.getByEmail(email));
-    }
-
     @GetMapping("/admin")
     public String getAllUsers(ModelMap model) {
         List<User> users =
                 userService.getAllNonAdminUsers();
         model.addAttribute("users", users);
+
         return "admin";
+    }
+
+    @GetMapping("/allOrders")
+    public @ResponseBody
+    List<PurchaseOrder> getAllSentOrders(
+            @RequestParam("email") String email) {
+
+        return purchaseOrderService
+                .getAllSentOrdersByUser(userService.getByEmail(email));
     }
 
     @PostMapping("/manageOrder")
@@ -62,6 +65,7 @@ public class AdminController {
             actionMessage = "The order with reference " + reference
                     + " has been successfully declined!";
         }
+
         return actionMessage;
     }
 

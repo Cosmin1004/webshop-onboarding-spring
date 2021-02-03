@@ -21,7 +21,6 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final CartEntryRepository cartEntryRepository;
 
-
     @Autowired
     CartServiceImpl(CartRepository cartRepository, CartEntryRepository cartEntryRepository) {
         this.cartRepository = cartRepository;
@@ -99,8 +98,8 @@ public class CartServiceImpl implements CartService {
                 cartEntryRepository.findByCartAndProduct(cart, product));
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void removeAllCartEntriesByCart(Cart cart) {
         cartEntryRepository.deleteAllByCart(cart);
     }

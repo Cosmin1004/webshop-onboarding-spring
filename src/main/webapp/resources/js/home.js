@@ -17,3 +17,23 @@ $(document).ready(function () {
     });
     backToTop.tooltip('show');
 });
+
+$(document).on("click", "#loginButton", function () {
+    showLoginModal();
+    document.getElementById("errorBar").innerHTML = null;
+});
+
+$(document).ready(function () {
+    let error = document.getElementById("hiddenError");
+    if (error) {
+        showLoginModal();
+    }
+});
+
+function showCartModal() {
+    $('#cartModal').modal('show');
+}
+
+function showLoginModal() {
+    $('#loginModal').modal('show');
+}

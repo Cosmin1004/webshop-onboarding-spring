@@ -43,18 +43,15 @@ public class UserController {
 
         //if the user for login is admin, then skip the merge + remove
         if (!user.isAdmin()) {
-            //merge user's cart with the anonymous cart
-            cartService.mergeAnonymousCartWithUserCart(user,
-                    anonymousCartHandler.getAnonymousCart(request));
-            //remove products from anonymous cart after they were merged
-            anonymousCartHandler.removeAllCartEntryCookies(request, response);
+            afterLogin(request, response, user);
         }
+
         return "redirect:/home";
     }
 
     @PostMapping(value = "/register")
     public String register(@ModelAttribute("registerForm") RegisterDto registerDto,
-                           HttpServletRequest request) {
+                           HttpServletRequest request, HttpServletResponse response) {
         //validation filter in RegisterFilter
 
         User user = dtoConvertor.convertRegisterDtoToUser(registerDto);
@@ -62,13 +59,25 @@ public class UserController {
         userService.saveUser(user);
         setUserSession(request, user);
 
+        afterLogin(request, response, user);
+
         return "redirect:/home";
     }
 
     @PostMapping(value = "/logout")
     public String logout(HttpSession session) {
         session.invalidate();
+
         return "redirect:/home";
+    }
+
+    private void afterLogin(HttpServletRequest request, HttpServletResponse response,
+                            User user) {
+        //merge user's cart with the anonymous cart
+        cartService.mergeAnonymousCartWithUserCart(user,
+                anonymousCartHandler.getAnonymousCart(request));
+        //remove products from anonymous cart after they were merged
+        anonymousCartHandler.removeAllCartEntryCookies(request, response);
     }
 
     private void setUserSession(HttpServletRequest request, User user) {

@@ -6,6 +6,7 @@ import com.youngculture.webshoponboardingspring.repository.CartRepository;
 import com.youngculture.webshoponboardingspring.repository.PurchaseOrderRepository;
 import com.youngculture.webshoponboardingspring.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,13 +38,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     public List<PurchaseOrder> getAllByUser(User user) {
-        return purchaseOrderRepository.findAllByUser(user);
+        return purchaseOrderRepository.findAllByUser(user, Sort.by("status"));
     }
 
     @Override
     public List<PurchaseOrder> getAllSentOrdersByUser(User user) {
         return purchaseOrderRepository
-                .findAllByUserAndStatus(user, Status.SENT);
+                .findAllByUserAndStatus(user, Status.SENT, Sort.by("reference"));
     }
 
     @Override
@@ -73,22 +74,31 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         purchaseOrder.setUser(user);
 
         List<PurchaseOrderEntry> purchaseOrderEntries = new ArrayList<>();
+
         double subTotal = 0.0;
 
+        //set list of order entries and subTotal
+        subTotal = addOrderEntriesAndGetSubTotal(cartEntries,
+                purchaseOrder, purchaseOrderEntries, subTotal);
+
+        purchaseOrder.setSubTotal(subTotal);
+        purchaseOrder.setOrderEntries(purchaseOrderEntries);
+
+        return purchaseOrder;
+    }
+
+    private double addOrderEntriesAndGetSubTotal(List<CartEntry> cartEntries, PurchaseOrder purchaseOrder, List<PurchaseOrderEntry> purchaseOrderEntries, double subTotal) {
+        //set list of order entries and subTotal
         for (CartEntry cartEntry : cartEntries) {
             PurchaseOrderEntry purchaseOrderEntry = new PurchaseOrderEntry();
             purchaseOrderEntry.setPurchaseOrder(purchaseOrder);
             purchaseOrderEntry.setProduct(cartEntry.getProduct());
             purchaseOrderEntry.setQuantity(cartEntry.getQuantity());
             purchaseOrderEntry.setPrice(cartEntry.getProduct().getPrice());
-            subTotal += cartEntry.getProduct().getPrice() * cartEntry.getQuantity();
 
+            subTotal += cartEntry.getProduct().getPrice() * cartEntry.getQuantity();
             purchaseOrderEntries.add(purchaseOrderEntry);
         }
-
-        purchaseOrder.setSubTotal(subTotal);
-        purchaseOrder.setOrderEntries(purchaseOrderEntries);
-
-        return purchaseOrder;
+        return subTotal;
     }
 }

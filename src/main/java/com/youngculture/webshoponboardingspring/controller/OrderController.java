@@ -33,6 +33,7 @@ public class OrderController {
     @ModelAttribute("user")
     public User getCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
+
         return (User) session.getAttribute("currentSessionUser");
     }
 
@@ -54,6 +55,7 @@ public class OrderController {
         List<Category> categories = categoryService.getAll();
         model.addAttribute("orders", purchaseOrders);
         model.addAttribute("categories", categories);
+
         return "order";
     }
 
