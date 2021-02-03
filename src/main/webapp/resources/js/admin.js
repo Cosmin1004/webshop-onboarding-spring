@@ -24,7 +24,7 @@ function getAllOrders(email) {
 //confirm or decline a order
 $(document).on("click", ".manageButton", function () {
     $.ajax({
-        type: "POST",
+        type: "PATCH",
         url: "/manageOrder",
         data: {
             id: $(this).val(),
