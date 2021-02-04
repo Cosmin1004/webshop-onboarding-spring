@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.youngculture.webshoponboardingspring.util.Const.REDIRECT_HOME;
+
 @Controller
 public class UserController {
 
@@ -46,7 +48,7 @@ public class UserController {
             afterLogin(request, response, user);
         }
 
-        return "redirect:/home";
+        return REDIRECT_HOME;
     }
 
     @PostMapping(value = "/register")
@@ -61,14 +63,14 @@ public class UserController {
 
         afterLogin(request, response, user);
 
-        return "redirect:/home";
+        return REDIRECT_HOME;
     }
 
     @PostMapping(value = "/logout")
     public String logout(HttpSession session) {
         session.invalidate();
 
-        return "redirect:/home";
+        return REDIRECT_HOME;
     }
 
     private void afterLogin(HttpServletRequest request, HttpServletResponse response,

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+import static com.youngculture.webshoponboardingspring.util.Const.ADMIN;
+
 @Controller
 public class AdminController {
 
@@ -32,7 +34,7 @@ public class AdminController {
                 userService.getAllNonAdminUsers();
         model.addAttribute("users", users);
 
-        return "admin";
+        return ADMIN;
     }
 
     @GetMapping("/allOrders")
