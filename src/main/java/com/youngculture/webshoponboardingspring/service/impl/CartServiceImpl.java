@@ -38,7 +38,7 @@ public class CartServiceImpl implements CartService {
         Cart cartDb = cartRepository.findByUserId(user.getId());
         if (cartDb == null) {
             //create cart for user if it not exist, and add the item(cart entry)
-            Cart cart = setCart(user, cartEntry);
+            Cart cart = createCartForAddingAProduct(user, cartEntry);
             cartRepository.save(cart);
         } else {
             //if the user cart it's already created, add/update the items(cart entries)
@@ -66,7 +66,7 @@ public class CartServiceImpl implements CartService {
         Cart cartDb = cartRepository.findByUserId(user.getId());
         if (cartDb == null) {
             //create cart for user if it not exist, and add the items from the anonymous cart
-            Cart cart = setCart(user, anonymousCartEntries);
+            Cart cart = createCartForMerge(user, anonymousCartEntries);
             cartRepository.save(cart);
         } else {
             //if the user cart it's already created, add/update the items(cart entries)
@@ -105,7 +105,7 @@ public class CartServiceImpl implements CartService {
     }
 
     //for merge (anonymous cart(many entries) with user's cart)
-    private Cart setCart(User user, List<CartEntry> anonymousCartEntries) {
+    private Cart createCartForMerge(User user, List<CartEntry> anonymousCartEntries) {
         Cart cart = new Cart();
         cart.setCartEntries(anonymousCartEntries);
         cart.setUser(user);
@@ -116,7 +116,7 @@ public class CartServiceImpl implements CartService {
     }
 
     //for adding a product(one entry) to the cart
-    private Cart setCart(User user, CartEntry cartEntry) {
+    private Cart createCartForAddingAProduct(User user, CartEntry cartEntry) {
         Cart cart = new Cart();
         List<CartEntry> cartEntries = new ArrayList<>();
         cartEntries.add(cartEntry);

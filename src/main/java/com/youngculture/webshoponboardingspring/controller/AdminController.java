@@ -50,25 +50,7 @@ public class AdminController {
     public @ResponseBody
     String manageOrder(@RequestParam(value = "id") Long id,
                        @RequestParam(value = "action") String action) {
-        purchaseOrderService.manageOrder(id, action);
-
-        String reference = String.valueOf(
-                purchaseOrderService.getById(id).getReference());
-
-        return getActionMessage(action, reference);
-    }
-
-    private String getActionMessage(String action, String reference) {
-        String actionMessage = null;
-        if (action.equals("Confirm")) {
-            actionMessage = "The order with reference " + reference
-                    + " has been successfully confirmed!";
-        } else if (action.equals("Decline")) {
-            actionMessage = "The order with reference " + reference
-                    + " has been successfully declined!";
-        }
-
-        return actionMessage;
+        return purchaseOrderService.manageOrder(id, action);
     }
 
 }

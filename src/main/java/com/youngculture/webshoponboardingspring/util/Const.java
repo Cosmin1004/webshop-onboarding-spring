@@ -14,4 +14,8 @@ public final class Const {
     public static final String ORDER = "order";
     public static final String ADMIN = "admin";
 
+    //actions for admin
+    public static final String CONFIRM = "Confirm";
+    public static final String DECLINE = "Decline";
+
 }

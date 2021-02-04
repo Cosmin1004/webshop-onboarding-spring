@@ -13,8 +13,6 @@ public interface PurchaseOrderService {
 
     List<PurchaseOrder> getAllSentOrdersByUser(User user);
 
-    void manageOrder(Long id, String action);
-
-    PurchaseOrder getById(Long id);
+    String manageOrder(Long id, String action);
 
 }
