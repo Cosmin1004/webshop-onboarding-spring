@@ -20,11 +20,12 @@
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="/resources/js/cart-order.js"></script>
+    <script src="/resources/js/order.js"></script>
+    <script src="/resources/js/cart.js"></script>
     <script src="/resources/js/home.js"></script>
 </head>
 
-<body onload="getCartCount()">
+<body>
 
 <jsp:include page="header.jsp"/>
 <jsp:include page="cart.jsp"/>

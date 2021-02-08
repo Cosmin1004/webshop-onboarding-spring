@@ -1,39 +1,54 @@
-//back top top button
 $(document).ready(function () {
-    let backToTop = $('#backToTop');
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 50) {
-            backToTop.fadeIn();
-        } else {
-            backToTop.fadeOut();
+    homeModule().bindAll();
+});
+
+homeModule = (function () {
+
+    let bindAllComponents = function () {
+        goBackToTop();
+        clearLoginModalErrors();
+        showLoginModalIfErrorsArePresent();
+    };
+
+    let goBackToTop = function () {
+        let backToTopButton = $('#backToTop');
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                backToTopButton.fadeIn();
+            } else {
+                backToTopButton.fadeOut();
+            }
+        });
+        backToTopButton.click(function () {
+            $('#backToTop').tooltip('hide');
+            $('html,body').animate({
+                scrollTop: 0
+            }, 400);
+            return false;
+        });
+        backToTopButton.tooltip('show');
+    };
+
+    let clearLoginModalErrors = function () {
+        $("#loginButton").on("click", function () {
+            showLoginModal();
+            document.getElementById("errorBar").innerHTML = null;
+        });
+    };
+
+    let showLoginModalIfErrorsArePresent = function () {
+        let error = document.getElementById("hiddenError");
+        if (error) {
+            showLoginModal();
         }
-    });
-    backToTop.click(function () {
-        $('#backToTop').tooltip('hide');
-        $('html,body').animate({
-            scrollTop: 0
-        }, 400);
-        return false;
-    });
-    backToTop.tooltip('show');
-});
+    };
 
-$(document).on("click", "#loginButton", function () {
-    showLoginModal();
-    document.getElementById("errorBar").innerHTML = null;
-});
+    let showLoginModal = function () {
+        $('#loginModal').modal('show');
+    };
 
-$(document).ready(function () {
-    let error = document.getElementById("hiddenError");
-    if (error) {
-        showLoginModal();
+    return {
+        bindAll: bindAllComponents
     }
+
 });
-
-function showCartModal() {
-    $('#cartModal').modal('show');
-}
-
-function showLoginModal() {
-    $('#loginModal').modal('show');
-}
