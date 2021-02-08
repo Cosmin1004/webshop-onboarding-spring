@@ -1,3 +1,5 @@
+/*login/register modal*/
+
 .modal-header {
     padding: 0;
 }
@@ -34,6 +36,8 @@
 .modal-body .form-group {
     margin-bottom: 10px;
 }
+
+/*error/confirmation message*/
 
 #welcomeMessage {
     color: white;

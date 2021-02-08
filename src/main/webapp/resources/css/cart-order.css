@@ -30,6 +30,14 @@
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
+.status {
+    margin-left: 5px;
+    color: #005cbf;
+    font-weight: bold;
+    float: right;
+}
+
+/*success message for remove product from cart*/
 .success-remove-msg {
     color: whitesmoke;
     text-align: center;
@@ -44,11 +52,4 @@
     border-radius: 3px 3px 3px 3px;
     background-color: #d9534f;
     padding: 10px;
-}
-
-.status {
-    margin-left: 5px;
-    color: #005cbf;
-    font-weight: bold;
-    float: right;
 }

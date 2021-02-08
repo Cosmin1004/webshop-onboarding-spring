@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import static com.youngculture.webshoponboardingspring.util.Const.HOME;
+
 @Controller
 public class ProductController {
 
@@ -34,7 +36,7 @@ public class ProductController {
         products = handleGetProducts(category);
         setAttributes(model, categoryRendered);
 
-        return "home";
+        return HOME;
     }
 
     private void setAttributes(ModelMap model, boolean categoryRendered) {

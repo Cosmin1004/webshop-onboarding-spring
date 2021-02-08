@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.youngculture.webshoponboardingspring.util.Const.CONFIRM;
+import static com.youngculture.webshoponboardingspring.util.Const.DECLINE;
+
 @Service
 public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
@@ -33,7 +36,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public PurchaseOrder sendOrder(User user) {
         Cart userCart = cartRepository.findByUserId(user.getId());
         List<CartEntry> cartEntries = userCart.getCartEntries();
-        return purchaseOrderRepository.save(setOrder(user, cartEntries));
+        return purchaseOrderRepository.save(
+                createOrderFromCart(user, cartEntries));
     }
 
     @Override
@@ -48,26 +52,28 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     @Override
-    public void manageOrder(Long id, String action) {
+    public String manageOrder(Long id, String action) {
         PurchaseOrder order =
                 purchaseOrderRepository.findById(id).get();
-        if (action.equals("Confirm")) {
+        String actionMessage = null;
+        if (action.equals(CONFIRM)) {
             order.setStatus(Status.CONFIRMED);
-        } else if (action.equals("Decline")) {
+            actionMessage = "The order with reference " + order.getReference()
+                    + " has been successfully confirmed!";
+        } else if (action.equals(DECLINE)) {
             order.setStatus(Status.DECLINED);
+            actionMessage = "The order with reference " + order.getReference()
+                    + " has been successfully declined!";
         }
         purchaseOrderRepository.save(order);
-    }
+        return actionMessage;
 
-    @Override
-    public PurchaseOrder getById(Long id) {
-        return purchaseOrderRepository.findById(id).get();
     }
 
     /*
      * create order from cart entries
      * */
-    private PurchaseOrder setOrder(User user, List<CartEntry> cartEntries) {
+    private PurchaseOrder createOrderFromCart(User user, List<CartEntry> cartEntries) {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setReference(Calendar.getInstance().getTimeInMillis());
         purchaseOrder.setStatus(Status.SENT);

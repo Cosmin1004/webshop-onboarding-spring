@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
+import static com.youngculture.webshoponboardingspring.util.Const.HOME;
+
 @Controller
 public class HomeController {
 
@@ -32,7 +34,7 @@ public class HomeController {
         products = productService.getAll();
         categories = categoryService.getAll();
         setAttributes(model);
-        return "home";
+        return HOME;
     }
 
     @PostMapping(value = {"/home"})
@@ -40,7 +42,7 @@ public class HomeController {
         products = productService.getAll();
         categories = categoryService.getAll();
         setAttributes(model);
-        return "home";
+        return HOME;
     }
 
     private void setAttributes(ModelMap model) {

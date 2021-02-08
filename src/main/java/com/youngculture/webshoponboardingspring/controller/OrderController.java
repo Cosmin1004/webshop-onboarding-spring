@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.youngculture.webshoponboardingspring.util.Const.ORDER;
+
 @Controller
 public class OrderController {
 
@@ -56,7 +58,7 @@ public class OrderController {
         model.addAttribute("orders", purchaseOrders);
         model.addAttribute("categories", categories);
 
-        return "order";
+        return ORDER;
     }
 
 }

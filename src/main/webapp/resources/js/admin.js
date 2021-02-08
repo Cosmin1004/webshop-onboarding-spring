@@ -1,7 +1,44 @@
+$(document).ready(function () {
+    adminModule().bindAll();
+});
+
+adminModule = (function () {
+
+    let bindAllComponents = function () {
+        manageOrder();
+    };
+
+    //confirm or decline a order
+    let manageOrder = function () {
+        $(document).on("click", ".manageOrder", function () {
+            $.ajax({
+                type: "PATCH",
+                url: "/manageOrder",
+                data: {
+                    id: $(this).val(),
+                    action: $(this).text()
+                },
+                success: function (responseText) {
+                    let matches = $('#chosenEmail').text().split('"');
+                    //refresh the table after confirm/delete
+                    getAllOrders(matches[1]);
+                    alert(responseText);
+                }
+            });
+            $(this).blur();
+        });
+    };
+
+    return {
+        bindAll: bindAllComponents
+    }
+
+});
+
 //get all sent orders for a specific user(by email)
 function getAllOrders(email) {
-    const chosenEmail = $('#chosenEmail');
-    const ordersCount = $('#ordersCount')
+    let chosenEmail = $('#chosenEmail');
+    let ordersCount = $('#ordersCount')
     $.ajax({
         type: "GET",
         url: "/allOrders",
@@ -21,25 +58,6 @@ function getAllOrders(email) {
     });
 }
 
-//confirm or decline a order
-$(document).on("click", ".manageButton", function () {
-    $.ajax({
-        type: "PATCH",
-        url: "/manageOrder",
-        data: {
-            id: $(this).val(),
-            action: $(this).text()
-        },
-        success: function (responseText) {
-            const matches = $('#chosenEmail').text().split('"');
-            //refresh the table after confirm/delete
-            getAllOrders(matches[1]);
-            alert(responseText);
-        }
-    });
-    $(this).blur();
-});
-
 function addInformation(orders) {
     if (orders.length === 0) {
         $('<h1>').text('No orders for this user...').appendTo('#infos');
@@ -47,7 +65,7 @@ function addInformation(orders) {
         $.each(orders, function (index, order) {
             $('<h3>').text('Order reference: ' + order.reference).appendTo('#infos');
             $('<span class="glyphicon glyphicon-calendar"></span>').appendTo('#infos');
-            const date = setDateAndTime(order.reference)
+            let date = setDateAndTime(order.reference)
             $('<span>').text(' Date: ' + date).appendTo('#infos');
             createAndPopulateTable(order);
             addActionButtons(order);
@@ -57,7 +75,7 @@ function addInformation(orders) {
 }
 
 function createAndPopulateTable(order) {
-    const table = createTemplate();
+    let table = createTemplate();
 
     $.each(order.orderEntries, function (index, orderEntry) {
         $('<tr>').append(
@@ -70,13 +88,13 @@ function createAndPopulateTable(order) {
 }
 
 function createTemplate() {
-    const table = $('<table class="table table-striped">');
+    let table = $('<table class="table table-striped">');
 
     table.append(
         $('<col width=\'70%\'>'),
         $('<col width=\'30%\'>'));
-    const thead = $('<thead class="thead">');
-    const tr = $('<tr>');
+    let thead = $('<thead class="thead">');
+    let tr = $('<tr>');
     $('<th>Product</th>').appendTo(tr);
     $('<th>Quantity</th>').appendTo(tr);
     tr.appendTo(thead);
@@ -87,13 +105,13 @@ function createTemplate() {
 
 function addActionButtons(order) {
     $('<div class="btn-group" role="group">').append(
-        $('<button value="' + order.id + '" class="btn btn-success manageButton">Confirm</button>'),
-        $('<button value="' + order.id + '" class="btn btn-danger manageButton">Decline</button>')
+        $('<button value="' + order.id + '" class="btn btn-success manageOrder">Confirm</button>'),
+        $('<button value="' + order.id + '" class="btn btn-danger manageOrder">Decline</button>')
     ).appendTo('#infos');
 }
 
 function setCount(orderEntries, ordersCount) {
-    var count = orderEntries.length;
+    let count = orderEntries.length;
     if (count === 1) {
         ordersCount.text(count + " order");
     } else {
@@ -103,6 +121,6 @@ function setCount(orderEntries, ordersCount) {
 }
 
 function setDateAndTime(timestamp) {
-    const theDate = new Date(timestamp);
+    let theDate = new Date(timestamp);
     return theDate.toGMTString();
 }

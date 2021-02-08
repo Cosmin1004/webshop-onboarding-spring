@@ -15,17 +15,18 @@
     <link rel="stylesheet" href="/resources/css/cart-order.css"/>
     <link rel="stylesheet" href="/resources/css/login.css"/>
     <link rel="stylesheet" href="/resources/css/header.css"/>
-    <link rel="shortcut icon" type="image/x-icon" href="resources/images/y.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/resources/images/y.png"/>
 
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="/resources/js/cart-order.js"></script>
+    <script src="/resources/js/cart.js"></script>
     <script src="/resources/js/home.js"></script>
+    <script src="/resources/js/order.js"></script>
 </head>
 
-<body onload="getCartCount()">
+<body>
 
 <jsp:include page="header.jsp"/>
 <jsp:include page="login.jsp"/>

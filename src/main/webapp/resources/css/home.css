@@ -1,3 +1,5 @@
+/*common components*/
+
 html,
 body {
     margin: 0;
@@ -27,6 +29,40 @@ table {
     table-layout: fixed;
 }
 
+/*back to top button*/
+
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    display: none;
+    background: #222;
+}
+
+.back-to-top:hover, .back-to-top:active, .back-to-top:focus {
+    background-color: black;
+}
+
+/*success message for add product/send order*/
+
+.success-msg {
+    color: #270;
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    font-size: large;
+    font-weight: bold;
+}
+
+.success-msg-border {
+    border-radius: 3px 3px 3px 3px;
+    background-color: #DFF2BF;
+    padding: 10px;
+}
+
+/*others*/
 
 #noProducts {
     display: block;
@@ -55,35 +91,6 @@ table {
 .icon {
     width: 25px;
     height: 25px;
-}
-
-.success-msg {
-    color: #270;
-    text-align: center;
-    display: block;
-    margin-bottom: 10px;
-    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-    font-size: large;
-    font-weight: bold;
-}
-
-.success-msg-border {
-    border-radius: 3px 3px 3px 3px;
-    background-color: #DFF2BF;
-    padding: 10px;
-}
-
-.back-to-top {
-    cursor: pointer;
-    position: fixed;
-    bottom: 120px;
-    right: 20px;
-    display: none;
-    background: #222;
-}
-
-.back-to-top:hover, .back-to-top:active, .back-to-top:focus {
-    background-color: black;
 }
 
 .marginButton {
